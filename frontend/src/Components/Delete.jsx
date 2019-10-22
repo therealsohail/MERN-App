@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 
 class Delete extends Component {
-    state = {  }
+    state = { }
     deleteRecord = e => {
         e.preventDefault();
         const pathname = window.location.pathname.split('/')
@@ -10,6 +10,7 @@ class Delete extends Component {
         Axios.delete(`http://localhost:8080/api/ninja/${id}`)
         .then(res => console.log(res))
         .catch(err => console.log(err))
+        alert('Data have been deleted')
     }
     render() { 
         return ( 

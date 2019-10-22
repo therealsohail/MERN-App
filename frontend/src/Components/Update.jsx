@@ -6,6 +6,7 @@ class Update extends Component {
         Name: '',
         Rank: '',
         Available: false,
+        notif:''
     }
     handleChange =(e) =>{
         this.setState({
@@ -15,10 +16,27 @@ class Update extends Component {
     handleSubmit = (e) =>{
         e.preventDefault();
         const pathname = window.location.pathname.split('/')
-        const id = pathname[2];        
+        const id = pathname[2];   
+        if(this.state.Name === '' || this.state.Rank === '')
+        {
+            return(
+                this.setState({
+                    notif: <div className="alert alert-danger alert-dismissible mt-3">
+                        <button type="button" className="close" data-dismiss="alert">&times;</button>
+                        <strong>Error!</strong> Enter the following values.
+                    </div>
+                })                
+            )
+        }     
         Axios.put(`http://localhost:8080/api/ninja/${id}`,this.state)
         .then(res => console.log(res))
         .catch(err => console.log(err))
+        this.setState({
+            notif: <div className="alert alert-info alert-dismissible mt-3">
+            <button type="button" className="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> Ninja have been updated!
+          </div>
+        })
     }
     componentDidMount(){
         const pathname = window.location.pathname.split('/')
@@ -65,6 +83,7 @@ class Update extends Component {
                     </div>
                     <input type="submit" value="Update" className='btn btn-primary'/>
                 </form>
+                {this.state.notif}
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import {NavLink} from 'react-router-dom';
+import {Animated} from "react-animated-css";
 
 class Ninjas extends Component {
     state = { 
@@ -20,7 +21,7 @@ class Ninjas extends Component {
     render() { 
         const {Ninjas} = this.state;
         return ( 
-            <div>
+                <div>
                 <h2>Ninjas List</h2>
                 <table className='table table-striped table-hover '>
                     <thead>

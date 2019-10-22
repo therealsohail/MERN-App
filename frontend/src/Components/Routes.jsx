@@ -12,8 +12,9 @@ class Routes extends Component {
     render() { 
         return ( 
             <BrowserRouter>
+            <div  className='container mt-4'> 
                 <Navigation/>
-                <div className='container m-4'>
+                <div  className='mt-4'>
                 <Switch>
                     <Route exact path='/' component={Ninjas}  />
                     <Route path='/Create' component={Create} />
@@ -22,6 +23,7 @@ class Routes extends Component {
                     <Route component={Err} />
                 </Switch>  
                 </div>
+            </div>
             </BrowserRouter>
          );
     }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import {Animated} from 'react-animated-css';
+import { anyTypeAnnotation } from '@babel/types';
 
 class Create extends Component {
     state = {
@@ -9,7 +11,8 @@ class Create extends Component {
         notif: ''
     }
     handleChange = (e) => {
-            this.setState({[e.target.name]:e.target.value},()=>{console.log(this.state.Available)})
+        this.setState({[e.target.name]:e.target.value},()=>{console.log(this.state.Available)})
+
     }
     handleSubmit = (e) => {
         e.preventDefault();
@@ -18,15 +21,30 @@ class Create extends Component {
               "Content-Type" : "application/json"
             }
           };
-        Axios.post('http://localhost:8080/api/ninja/',this.state, config)
-        .then(res => {console.log(res)})
-        .catch(err=>{console.log(err)});
-        this.setState({
-            notif: <div className="alert alert-info alert-dismissible mt-3">
-            <button type="button" className="close" data-dismiss="alert">&times;</button>
-            <strong>Success!</strong> Ninja have been added into the list.
-          </div>
-        })
+          if(this.state.Name === '' || this.state.Rank === '' )
+          {
+              return(
+                  this.setState({
+                      notif: <div className="alert alert-danger alert-dismissible mt-3">
+                          <button type="button" className="close" data-dismiss="alert">&times;</button>
+                          <strong>Error!</strong> Enter the following values.
+                      </div>
+                  })
+                //   console.log('empty fields')
+                  
+              )
+          }
+          else{
+            Axios.post('http://localhost:8080/api/ninja/',this.state, config)
+            .then(res => {console.log(res)})
+            .catch(err=>{console.log(err)});
+            this.setState({
+                notif: <div className="alert alert-info alert-dismissible mt-3">
+                <button type="button" className="close" data-dismiss="alert">&times;</button>
+                <strong>Success!</strong> Ninja have been added into the list.
+              </div>
+            })
+          }
     }
     render() { 
         const {Name,Rank,Available} = this.state;
